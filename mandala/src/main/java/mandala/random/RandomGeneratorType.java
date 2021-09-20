@@ -1,4 +1,4 @@
-package random;
+package mandala.random;
 
 public enum RandomGeneratorType {
 	RANDOM,

@@ -11,6 +11,10 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import mandala.TwoDimensionalFunction;
+import mandala.random.GaussianSampler2D;
+import mandala.random.MonteCarloIntegrator2D;
+import mandala.random.RandomGeneratorType;
+import mandala.random.Sampler;
 
 class MonteCarloIntegrator2DTest {
 

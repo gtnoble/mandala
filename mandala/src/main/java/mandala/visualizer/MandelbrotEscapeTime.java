@@ -1,4 +1,4 @@
-package mandala;
+package mandala.visualizer;
 
 import java.util.HashSet;
 

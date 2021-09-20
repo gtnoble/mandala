@@ -1,4 +1,4 @@
-package random;
+package mandala.random;
 
 import org.apache.commons.math3.random.RandomVectorGenerator;
 import org.apache.commons.math3.random.SynchronizedRandomGenerator;

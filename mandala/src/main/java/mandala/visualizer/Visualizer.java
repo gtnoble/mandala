@@ -1,4 +1,4 @@
-package mandala;
+package mandala.visualizer;
 
 import org.apache.commons.math3.complex.Complex;
 

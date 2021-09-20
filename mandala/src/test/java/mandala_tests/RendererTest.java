@@ -17,11 +17,11 @@ import org.junit.jupiter.params.provider.MethodSource;
 import mandala.BasicRenderer;
 import mandala.FractintParameters;
 import mandala.Image;
-import mandala.MandelbrotEscapeTime;
 import mandala.ParallelBasicRenderer;
 import mandala.Renderer;
 import mandala.Scene;
-import mandala.Visualizer;
+import mandala.visualizer.MandelbrotEscapeTime;
+import mandala.visualizer.Visualizer;
 
 class RendererTest {
 	

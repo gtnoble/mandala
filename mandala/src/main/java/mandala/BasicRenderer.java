@@ -2,6 +2,8 @@ package mandala;
 
 import org.apache.commons.math3.complex.Complex;
 
+import mandala.visualizer.Visualizer;
+
 public class BasicRenderer implements Renderer {
 	
 	public BasicRenderer() {}

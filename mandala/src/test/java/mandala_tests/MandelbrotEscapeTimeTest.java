@@ -9,8 +9,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import mandala.MandelbrotEscapeTime;
-import mandala.Visualizer;
+import mandala.visualizer.MandelbrotEscapeTime;
+import mandala.visualizer.Visualizer;
 
 class MandelbrotEscapeTimeTest {
 	

@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 import org.apache.commons.math3.complex.Complex;
 
+import mandala.visualizer.Visualizer;
+
 public class ParallelBasicRenderer implements Renderer {
 	
 	public ParallelBasicRenderer() {};
