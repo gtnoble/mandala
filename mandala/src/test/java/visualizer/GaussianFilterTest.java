@@ -10,19 +10,23 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import mandala.visualizer.GaussianFilter;
 import mandala.visualizer.Visualizer;
 
 class GaussianFilterTest {
+	
+	public static double[] constantFunctionValues() {
+		return new double[] {0, 1};
+	}
+
 	static final double TOLERABLE_ERROR = 0.001;
 	
 	final int MAX_EVALUATIONS = 10000;
-	Visualizer visualizer = new ConstantVisualizer();
-	UnivariateIntegrator integratorX = new TrapezoidIntegrator();
-	UnivariateIntegrator integratorY = new TrapezoidIntegrator();
-	GaussianFilter filter = new GaussianFilter(visualizer, 1, integratorX, integratorY, MAX_EVALUATIONS, 2);
-
+	Visualizer oneVisualizer = new ConstantVisualizer(1);
+	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 	}
@@ -39,11 +43,22 @@ class GaussianFilterTest {
 	void tearDown() throws Exception {
 	}
 
-	@Test
-	void testValue() {
-		double constantOneIntegral = filter.value(new Complex(0,0));
-		assertTrue(Math.abs(constantOneIntegral - 1) <= TOLERABLE_ERROR, 
-				   "integration of constant one function failed: expected 1.0, actual " + constantOneIntegral);
+	@ParameterizedTest
+	@MethodSource(value = "constantFunctionValues")
+	void testConstantValueFunction(double constantFunctionValue) {
+		Visualizer visualizer = new ConstantVisualizer(constantFunctionValue);
+
+		UnivariateIntegrator integratorX = new TrapezoidIntegrator();
+		UnivariateIntegrator integratorY = new TrapezoidIntegrator();
+
+		GaussianFilter filter = 
+				new GaussianFilter(visualizer, 1, integratorX, integratorY, MAX_EVALUATIONS, 2);
+		double constantIntegral = filter.value(new Complex(0,0));
+
+		assertTrue(Math.abs(constantIntegral - constantFunctionValue) <= TOLERABLE_ERROR, 
+				   "integration of constant one function failed: expected " + 
+					constantFunctionValue + 
+					", actual " + constantIntegral);
 	}
 
 }
