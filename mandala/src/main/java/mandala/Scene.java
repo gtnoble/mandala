@@ -46,12 +46,14 @@ public class Scene {
 		return((double) y - 0.5 * ((double) yScreenDimension - 1));
 	}
 	
+	public double getInterPixelDistance() {
+		return zoom / (double) yScreenDimension;
+	}
+	
 	private Complex screenToSceneCoords(int x, int y) {
-		double dImagDY = zoom / (double) yScreenDimension;
-		double dRealDX = zoom / (double) xScreenDimension;	
 		
-		double sceneRealUncentered = screenToCartesianX(x) * dRealDX;
-		double sceneImagUncentered = screenToCartesianY(y) * dImagDY;
+		double sceneRealUncentered = screenToCartesianX(x) * getInterPixelDistance();
+		double sceneImagUncentered = screenToCartesianY(y) * getInterPixelDistance();
 		
 		return(new Complex(sceneRealUncentered, sceneImagUncentered).add(sceneCenter));
 	}

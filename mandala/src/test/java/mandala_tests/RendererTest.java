@@ -48,7 +48,7 @@ class RendererTest {
 		FractintParameters parameters = new FractintParameters(testFilePath);
 		
 		scene = new Scene(parameters.center(), screenXSize, screenYSize, parameters.zoom());
-		visualizer = new MandelbrotEscapeTime(maxIterations);
+		visualizer = new MandelbrotEscapeTime(maxIterations, scene.getInterPixelDistance());
 		//image = new Image(screenXSize, screenYSize);
 		
 	}

@@ -12,6 +12,10 @@ public class ConstantVisualizer implements Visualizer {
 		this.constantValue = constantValue;
 		
 	}
+	
+	public double getInterPixelDistance() {
+		return 1;
+	}
 
 	@Override
 	public double value(Complex location) {

@@ -1,4 +1,4 @@
-package visualizer;
+package filter;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,6 +15,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import mandala.visualizer.GaussianFilter;
 import mandala.visualizer.Visualizer;
+import visualizer.ConstantVisualizer;
 
 class GaussianFilterTest {
 	
@@ -52,8 +53,8 @@ class GaussianFilterTest {
 		UnivariateIntegrator integratorY = new TrapezoidIntegrator();
 
 		GaussianFilter filter = 
-				new GaussianFilter(visualizer, 1, integratorX, integratorY, MAX_EVALUATIONS, 2);
-		double constantIntegral = filter.value(new Complex(0,0));
+				new GaussianFilter(1, integratorX, integratorY, MAX_EVALUATIONS, 2);
+		double constantIntegral = filter.apply(visualizer).value(new Complex(0,0));
 
 		assertTrue(Math.abs(constantIntegral - constantFunctionValue) <= TOLERABLE_ERROR, 
 				   "integration of constant one function failed: expected " + 

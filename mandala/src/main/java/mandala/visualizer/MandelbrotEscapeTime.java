@@ -6,9 +6,15 @@ import org.apache.commons.math3.complex.Complex;
 
 public class MandelbrotEscapeTime implements Visualizer{
 	int maxIterations;
+	double interPixelDistance;
 	
-	public MandelbrotEscapeTime(int maxIterations) {
+	public MandelbrotEscapeTime(int maxIterations, double interPixelDistance) {
 		this.maxIterations = maxIterations;
+		this.interPixelDistance = interPixelDistance;
+	}
+	
+	public double getInterPixelDistance() {
+		return interPixelDistance;
 	}
 	
 	public double value(Complex location) {

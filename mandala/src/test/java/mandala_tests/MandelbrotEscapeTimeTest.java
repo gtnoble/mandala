@@ -16,10 +16,11 @@ class MandelbrotEscapeTimeTest {
 	
 	static Visualizer visualizer;
 	final static int maxIterations = 100;
+	final static double interPixelDistance = 1;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		visualizer = new MandelbrotEscapeTime(maxIterations);
+		visualizer = new MandelbrotEscapeTime(maxIterations, interPixelDistance);
 	}
 
 	@AfterAll
