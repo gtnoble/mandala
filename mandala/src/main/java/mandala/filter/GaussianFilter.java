@@ -1,14 +1,16 @@
-package mandala.visualizer;
+package mandala.filter;
+
+import java.util.function.Function;
 
 import org.apache.commons.math3.analysis.integration.UnivariateIntegrator;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.distribution.NormalDistribution;
 
 import mandala.TwoDimensionalFunction;
-import mandala.filter.Filter;
+import mandala.visualizer.Visualizer;
 
-public class GaussianFilter implements Filter {
-	Filter gaussianFilter;
+public class GaussianFilter extends Filter {
+	Function<Visualizer, Visualizer> gaussianFilterTransform;
 	
 	public GaussianFilter(double kernelStandardDeviationPixels, 
 						  UnivariateIntegrator integratorX, 
@@ -16,7 +18,7 @@ public class GaussianFilter implements Filter {
 						  int maxEvaluations,
 						  double transformScaleFactor) {
 
-		gaussianFilter = (inputVisualizer) -> this.new GaussianFilterVisualizer(inputVisualizer, 
+		gaussianFilterTransform = (inputVisualizer) -> this.new GaussianFilterVisualizer(inputVisualizer, 
 				kernelStandardDeviationPixels, 
 				transformScaleFactor,
 				integratorX,
@@ -25,8 +27,8 @@ public class GaussianFilter implements Filter {
 		
 	}
 	
-	public Visualizer apply(Visualizer inputVisualizer) {
-		return gaussianFilter.apply(inputVisualizer);
+	public Visualizer filter(Visualizer inputVisualizer) {
+		return gaussianFilterTransform.apply(inputVisualizer);
 	}
 	
 	public class GaussianFilterVisualizer implements Visualizer{

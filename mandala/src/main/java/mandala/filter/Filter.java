@@ -1,9 +1,13 @@
 package mandala.filter;
 
-import java.util.function.Function;
-
 import mandala.visualizer.Visualizer;
 
-public interface Filter extends Function<Visualizer, Visualizer>{
-	public Visualizer apply(Visualizer inputVisualizer);
+public abstract class Filter {
+	
+	public abstract Visualizer filter(Visualizer inputVisualizer);
+	
+	public CompositeFilter chain(Filter inputFilter) {
+		return new CompositeFilter(this, inputFilter);
+	}
+	
 }
