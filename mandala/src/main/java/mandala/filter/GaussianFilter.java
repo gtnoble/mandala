@@ -3,7 +3,6 @@ package mandala.filter;
 import java.util.function.Function;
 
 import org.apache.commons.math3.analysis.integration.UnivariateIntegrator;
-import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.distribution.NormalDistribution;
 
 import mandala.TwoDimensionalFunction;
@@ -39,10 +38,6 @@ public class GaussianFilter extends Filter {
 		Visualizer inputVisualizer;
 		int maxEvaluations;
 
-		public double getInterPixelDistance() {
-			return inputVisualizer.getInterPixelDistance();
-		}
-		
 		public GaussianFilterVisualizer(Visualizer inputVisualizer, 
 										double kernelStandardDeviationPixels, 
 										double transformScaleFactor,
@@ -50,7 +45,6 @@ public class GaussianFilter extends Filter {
 										UnivariateIntegrator integratorY,
 										int maxEvaluations) {
 
-			this.kernelStandardDeviationScene = kernelStandardDeviationPixels * inputVisualizer.getInterPixelDistance();
 			this.transformStandardDeviation = transformScaleFactor * kernelStandardDeviationScene;
 			this.inputVisualizer = inputVisualizer;
 			this.integratorX = integratorX;
@@ -59,13 +53,15 @@ public class GaussianFilter extends Filter {
 		}
 
 		@Override
-		public double value(Complex location) {
+		public double value(double[] coordinates) {
+			double xCoord = coordinates[0];
+			double yCoord = coordinates[1];
 
-			NormalDistribution filterKernelX = new NormalDistribution(location.getReal(), kernelStandardDeviationScene);
-			NormalDistribution filterKernelY = new NormalDistribution(location.getImaginary(), kernelStandardDeviationScene);
+			NormalDistribution filterKernelX = new NormalDistribution(xCoord, kernelStandardDeviationScene);
+			NormalDistribution filterKernelY = new NormalDistribution(yCoord, kernelStandardDeviationScene);
 			
-			NormalDistribution transformerX = new NormalDistribution(location.getReal(), transformStandardDeviation);
-			NormalDistribution transformerY = new NormalDistribution(location.getImaginary(), transformStandardDeviation);
+			NormalDistribution transformerX = new NormalDistribution(xCoord, transformStandardDeviation);
+			NormalDistribution transformerY = new NormalDistribution(yCoord, transformStandardDeviation);
 			
 			TwoDimensionalFunction integrand = (h, k) -> 
 				{ 
@@ -77,7 +73,7 @@ public class GaussianFilter extends Filter {
 					//Integrand vanishes at infinity
 					if(x == inf || x == negInf || y == inf || y == negInf) return 0;
 
-					double visualizedValue = inputVisualizer.value(new Complex(x, y));
+					double visualizedValue = inputVisualizer.value(new double[] {x, y});
 
 					double kernelWeight = filterKernelX.density(x) * filterKernelY.density(y);
 					double transformWeight = transformerX.density(x) * transformerY.density(y);

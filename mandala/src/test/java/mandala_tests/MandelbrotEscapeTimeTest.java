@@ -37,10 +37,10 @@ class MandelbrotEscapeTimeTest {
 
 	@Test
 	void testValue() {
-		assertEquals((double) maxIterations, visualizer.value(new Complex(0, 0)), 
+		assertEquals((double) maxIterations, visualizer.value(new double[] {0.0, 0.0}), 
 				     "point (0,0) should never escape");
 		
-		assertEquals(0.0, visualizer.value(new Complex(10, 10)),
+		assertEquals(0.0, visualizer.value(new double[] {0.0, 0.0}),
 					"point (10, 10) should escape immediately");
 		
 	}

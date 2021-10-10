@@ -54,7 +54,7 @@ class GaussianFilterTest {
 
 		GaussianFilter filter = 
 				new GaussianFilter(1, integratorX, integratorY, MAX_EVALUATIONS, 2);
-		double constantIntegral = filter.filter(visualizer).value(new Complex(0,0));
+		double constantIntegral = filter.filter(visualizer).value(new double[] {0.0, 0.0});
 
 		assertTrue(Math.abs(constantIntegral - constantFunctionValue) <= TOLERABLE_ERROR, 
 				   "integration of constant one function failed: expected " + 

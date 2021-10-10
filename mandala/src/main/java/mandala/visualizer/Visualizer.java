@@ -1,9 +1,8 @@
 package mandala.visualizer;
 
-import org.apache.commons.math3.complex.Complex;
+import mandala.XYPoint;
 
 public interface Visualizer {
-	public double value(Complex location);
+	public double value(XYPoint<Double> point);
 	
-	public double getInterPixelDistance();
 }

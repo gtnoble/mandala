@@ -14,19 +14,19 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import mandala.BasicRenderer;
+import mandala.BasicRasterizer;
 import mandala.FractintParameters;
 import mandala.Image;
 import mandala.ParallelBasicRenderer;
-import mandala.Renderer;
+import mandala.Rasterizer;
 import mandala.Scene;
 import mandala.visualizer.MandelbrotEscapeTime;
 import mandala.visualizer.Visualizer;
 
 class RendererTest {
 	
-	public static Renderer[] rendererUnderTest() {
-		return new Renderer[] {new BasicRenderer(), new ParallelBasicRenderer()};
+	public static Rasterizer[] rendererUnderTest() {
+		return new Rasterizer[] {new BasicRasterizer(), new ParallelBasicRenderer()};
 	}
 	
 	//static Renderer renderer;
@@ -67,7 +67,7 @@ class RendererTest {
 
 	@ParameterizedTest
 	@MethodSource(value = "rendererUnderTest")
-	void testRenderScene(Renderer renderer) {
+	void testRenderScene(Rasterizer renderer) {
 		image = renderer.renderScene(scene, visualizer);
 		Path imagePath = resourcesPath.resolve(renderer.getClass().getSimpleName() + "_" + "fractintTestImage.tiff");
 		//File imageFile = imagePath.toFile();

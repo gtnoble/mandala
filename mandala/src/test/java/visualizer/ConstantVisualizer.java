@@ -13,12 +13,8 @@ public class ConstantVisualizer implements Visualizer {
 		
 	}
 	
-	public double getInterPixelDistance() {
-		return 1;
-	}
-
 	@Override
-	public double value(Complex location) {
+	public double value(double[] coordinates) {
 		return constantValue;
 	}
 

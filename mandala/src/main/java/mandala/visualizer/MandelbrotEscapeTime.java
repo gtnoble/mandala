@@ -4,6 +4,8 @@ import java.util.HashSet;
 
 import org.apache.commons.math3.complex.Complex;
 
+import mandala.XYPoint;
+
 public class MandelbrotEscapeTime implements Visualizer{
 	int maxIterations;
 	double interPixelDistance;
@@ -17,8 +19,9 @@ public class MandelbrotEscapeTime implements Visualizer{
 		return interPixelDistance;
 	}
 	
-	public double value(Complex location) {
+	public double value(XYPoint<Double> point) {
 		int iterationCount;
+		Complex location = point.toComplex();
 		Complex z = new Complex(0, 0);
 		
 		HashSet<Complex> previousZ = new HashSet<Complex>();

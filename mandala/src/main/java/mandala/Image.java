@@ -23,6 +23,12 @@ public class Image {
 		pixels = new double[width][height];
 	}
 	
+	public Image(Viewport viewport) {
+		this.width = viewport.ViewportXDimension;
+		this.height = viewport.ViewportYDimension;
+		this.pixels = new double[width][height];
+	}
+	
 	public double getPixel(int x, int y) {
 		return(pixels[x][y]);
 	}
