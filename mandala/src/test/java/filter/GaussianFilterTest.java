@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.apache.commons.math3.analysis.integration.TrapezoidIntegrator;
 import org.apache.commons.math3.analysis.integration.UnivariateIntegrator;
-import org.apache.commons.math3.complex.Complex;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import mandala.XYPoint;
 import mandala.filter.GaussianFilter;
 import mandala.visualizer.Visualizer;
 import visualizer.ConstantVisualizer;
@@ -25,7 +25,7 @@ class GaussianFilterTest {
 
 	static final double TOLERABLE_ERROR = 0.001;
 	
-	final int MAX_EVALUATIONS = 10000;
+	static final int MAX_EVALUATIONS = 10000;
 	Visualizer oneVisualizer = new ConstantVisualizer(1);
 	
 	@BeforeAll
@@ -51,10 +51,12 @@ class GaussianFilterTest {
 
 		UnivariateIntegrator integratorX = new TrapezoidIntegrator();
 		UnivariateIntegrator integratorY = new TrapezoidIntegrator();
+		
+		XYPoint<Double> testEvaluationPoint = new XYPoint<Double>(0.0, 0.0);
 
 		GaussianFilter filter = 
 				new GaussianFilter(1, integratorX, integratorY, MAX_EVALUATIONS, 2);
-		double constantIntegral = filter.filter(visualizer).value(new double[] {0.0, 0.0});
+		double constantIntegral = filter.filter(visualizer).value(testEvaluationPoint);
 
 		assertTrue(Math.abs(constantIntegral - constantFunctionValue) <= TOLERABLE_ERROR, 
 				   "integration of constant one function failed: expected " + 

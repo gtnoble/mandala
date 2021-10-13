@@ -14,24 +14,26 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import mandala.BasicRasterizer;
 import mandala.FractintParameters;
-import mandala.Image;
-import mandala.ParallelBasicRenderer;
+import mandala.Raster;
+import mandala.ParallelBasicRasterizer;
+import mandala.PixelPipeline;
 import mandala.Rasterizer;
-import mandala.Scene;
+import mandala.Viewport;
+import mandala.VirtualCamera;
 import mandala.visualizer.MandelbrotEscapeTime;
 import mandala.visualizer.Visualizer;
 
 class RendererTest {
 	
 	public static Rasterizer[] rendererUnderTest() {
-		return new Rasterizer[] {new BasicRasterizer(), new ParallelBasicRenderer()};
+		return new Rasterizer[] {new ParallelBasicRasterizer()};
 	}
 	
 	//static Renderer renderer;
-	static Scene scene;
-	static Image image;
+	static VirtualCamera camera;
+	static Raster raster;
+	static Viewport viewport;
 	static Visualizer visualizer;
 	static Path resourcesPath;
 
@@ -47,9 +49,9 @@ class RendererTest {
 		Path testFilePath = resourcesPath.resolve("fractint_params.par");
 		FractintParameters parameters = new FractintParameters(testFilePath);
 		
-		scene = new Scene(parameters.center(), screenXSize, screenYSize, parameters.zoom());
-		visualizer = new MandelbrotEscapeTime(maxIterations, scene.getInterPixelDistance());
-		//image = new Image(screenXSize, screenYSize);
+		camera = new VirtualCamera(parameters.center(), parameters.zoom());
+		visualizer = new MandelbrotEscapeTime(maxIterations);
+		viewport = new Viewport(screenXSize, screenYSize);
 		
 	}
 
@@ -68,11 +70,10 @@ class RendererTest {
 	@ParameterizedTest
 	@MethodSource(value = "rendererUnderTest")
 	void testRenderScene(Rasterizer renderer) {
-		image = renderer.renderScene(scene, visualizer);
+		PixelPipeline scenePipe = renderer.renderScene(viewport, camera, null, visualizer);
+		raster = new Raster(scenePipe);
 		Path imagePath = resourcesPath.resolve(renderer.getClass().getSimpleName() + "_" + "fractintTestImage.tiff");
-		//File imageFile = imagePath.toFile();
-		image.writeTIFF(imagePath.toFile());
-		//fail();
+		raster.writeTIFF(imagePath.toFile());
 	}
 
 }

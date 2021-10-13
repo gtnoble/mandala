@@ -6,27 +6,40 @@ import java.io.IOException;
 import mil.nga.tiff.*;
 import mil.nga.tiff.util.TiffConstants;
 
-public class Image {
+public class Raster {
 	double[][] pixels;
 	int width;
 	int height;
 	
-	public Image(double[][] pixels, int width, int height) {
+	public Raster(double[][] pixels, int width, int height) {
 		this.pixels = pixels;
 		this.width = width;
 		this.height = height;
 	}
 	
-	public Image(int width, int height) {
+	public Raster(int width, int height) {
 		this.width = width;
 		this.height = height;
 		pixels = new double[width][height];
 	}
 	
-	public Image(Viewport viewport) {
+	public Raster(Viewport viewport) {
 		this.width = viewport.ViewportXDimension;
 		this.height = viewport.ViewportYDimension;
 		this.pixels = new double[width][height];
+	}
+	
+	public Raster(PixelPipeline pipeline) {
+		this.width = pipeline.getRasterXDimension();
+		this.height = pipeline.getRasterYDimension();
+		this.pixels = new double[width][height];
+		
+		pipeline.pixelStream.forEach((pixel) -> {
+			int x = pixel.xYComponent.getX();
+			int y = pixel.xYComponent.getY();
+			double value = pixel.getZ();
+			pixels[x][y] = value;
+		});
 	}
 	
 	public double getPixel(int x, int y) {
@@ -35,6 +48,10 @@ public class Image {
 	
 	public void setPixel(int x, int y, double value) {
 		pixels[x][y] = value;
+	}
+	
+	public void setPixel(XYZPoint<Integer, Double> point) {
+		pixels[point.getXY().getX()][point.getXY().getY()] =  point.getZ();
 	}
 	
 	public void writeTIFF(File tiffFile) {

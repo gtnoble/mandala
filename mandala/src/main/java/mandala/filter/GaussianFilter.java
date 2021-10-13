@@ -6,6 +6,7 @@ import org.apache.commons.math3.analysis.integration.UnivariateIntegrator;
 import org.apache.commons.math3.distribution.NormalDistribution;
 
 import mandala.TwoDimensionalFunction;
+import mandala.XYPoint;
 import mandala.visualizer.Visualizer;
 
 public class GaussianFilter extends Filter {
@@ -53,15 +54,13 @@ public class GaussianFilter extends Filter {
 		}
 
 		@Override
-		public double value(double[] coordinates) {
-			double xCoord = coordinates[0];
-			double yCoord = coordinates[1];
+		public double value(XYPoint<Double> point) {
 
-			NormalDistribution filterKernelX = new NormalDistribution(xCoord, kernelStandardDeviationScene);
-			NormalDistribution filterKernelY = new NormalDistribution(yCoord, kernelStandardDeviationScene);
+			NormalDistribution filterKernelX = new NormalDistribution(point.getX(), kernelStandardDeviationScene);
+			NormalDistribution filterKernelY = new NormalDistribution(point.getY(), kernelStandardDeviationScene);
 			
-			NormalDistribution transformerX = new NormalDistribution(xCoord, transformStandardDeviation);
-			NormalDistribution transformerY = new NormalDistribution(yCoord, transformStandardDeviation);
+			NormalDistribution transformerX = new NormalDistribution(point.getX(), transformStandardDeviation);
+			NormalDistribution transformerY = new NormalDistribution(point.getY(), transformStandardDeviation);
 			
 			TwoDimensionalFunction integrand = (h, k) -> 
 				{ 
@@ -73,7 +72,7 @@ public class GaussianFilter extends Filter {
 					//Integrand vanishes at infinity
 					if(x == inf || x == negInf || y == inf || y == negInf) return 0;
 
-					double visualizedValue = inputVisualizer.value(new double[] {x, y});
+					double visualizedValue = inputVisualizer.value(new XYPoint<Double>(x, y));
 
 					double kernelWeight = filterKernelX.density(x) * filterKernelY.density(y);
 					double transformWeight = transformerX.density(x) * transformerY.density(y);

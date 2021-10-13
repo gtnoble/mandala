@@ -8,15 +8,9 @@ import mandala.XYPoint;
 
 public class MandelbrotEscapeTime implements Visualizer{
 	int maxIterations;
-	double interPixelDistance;
 	
-	public MandelbrotEscapeTime(int maxIterations, double interPixelDistance) {
+	public MandelbrotEscapeTime(int maxIterations) {
 		this.maxIterations = maxIterations;
-		this.interPixelDistance = interPixelDistance;
-	}
-	
-	public double getInterPixelDistance() {
-		return interPixelDistance;
 	}
 	
 	public double value(XYPoint<Double> point) {

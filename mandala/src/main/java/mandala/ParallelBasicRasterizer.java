@@ -1,25 +1,29 @@
 package mandala;
 
-import java.util.Arrays;
+import java.util.stream.Stream;
 
-import org.apache.commons.math3.complex.Complex;
 
+import mandala.filter.Filter;
+import mandala.filter.NullFilter;
 import mandala.visualizer.Visualizer;
 
-public class ParallelBasicRenderer implements Rasterizer {
+public class ParallelBasicRasterizer implements Rasterizer {
 	
-	public ParallelBasicRenderer() {};
+	public ParallelBasicRasterizer() {};
 
 	@Override
-	public Image renderScene(Viewport viewport, Visualizer visualizer) {
-		// TODO Auto-generated method stub
-		Image image;
-		
-		image = new Image(viewport);
-		
-		viewport.streamPixelCoordinates().map((point) -> visualizer.value(point)).forEach(())
+	public PixelPipeline renderScene(Viewport viewport, VirtualCamera camera, Filter postFilter, Visualizer visualizer) {
 
-		return image;
+		if(postFilter == null) postFilter = new NullFilter();
+		
+		CoordinateTransformation viewportCoordinateTransformer = camera.sceneToViewportCoordinateTransformer(viewport);
+		Visualizer transformedVisualizer = (scenePt) -> visualizer.value(viewportCoordinateTransformer.transform(scenePt));
+		Visualizer signalChain = postFilter.filter(transformedVisualizer);
+		Stream<XYZPoint<Integer, Double>> pixelStream = viewport
+							.streamPixelCoordinates().parallel()
+							.map((point) -> new XYZPoint<Integer, Double>(point, signalChain.value(point.toDoublePoint())));
+
+		return new PixelPipeline(viewport, pixelStream);
 	}
 
 }

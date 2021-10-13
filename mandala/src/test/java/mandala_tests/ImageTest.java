@@ -11,11 +11,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import mandala.Image;
+import mandala.Raster;
 
 class ImageTest {
 	
-	static Image whiteSquareImage;
+	static Raster whiteSquareImage;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -24,7 +24,7 @@ class ImageTest {
 										{0.0, 1.0, 1.0, 0.0},
 										{0.0, 0.0, 0.0, 0.0}};
 		
-		whiteSquareImage = new Image(whiteSquarePixels, 4, 4);
+		whiteSquareImage = new Raster(whiteSquarePixels, 4, 4);
 
 	}
 

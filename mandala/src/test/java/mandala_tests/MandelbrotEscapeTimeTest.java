@@ -2,13 +2,13 @@ package mandala_tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.apache.commons.math3.complex.Complex;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import mandala.XYPoint;
 import mandala.visualizer.MandelbrotEscapeTime;
 import mandala.visualizer.Visualizer;
 
@@ -16,11 +16,10 @@ class MandelbrotEscapeTimeTest {
 	
 	static Visualizer visualizer;
 	final static int maxIterations = 100;
-	final static double interPixelDistance = 1;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		visualizer = new MandelbrotEscapeTime(maxIterations, interPixelDistance);
+		visualizer = new MandelbrotEscapeTime(maxIterations);
 	}
 
 	@AfterAll
@@ -37,10 +36,12 @@ class MandelbrotEscapeTimeTest {
 
 	@Test
 	void testValue() {
-		assertEquals((double) maxIterations, visualizer.value(new double[] {0.0, 0.0}), 
+		XYPoint<Double> neverEscape = new XYPoint<Double>(0.0, 0.0);
+		assertEquals((double) maxIterations, visualizer.value(neverEscape), 
 				     "point (0,0) should never escape");
 		
-		assertEquals(0.0, visualizer.value(new double[] {0.0, 0.0}),
+		XYPoint<Double> immediatelyEscape = new XYPoint<Double>(10.0, 10.0);
+		assertEquals(0.0, visualizer.value(immediatelyEscape),
 					"point (10, 10) should escape immediately");
 		
 	}

@@ -24,8 +24,8 @@ public class VirtualCamera {
 		double interPixelDistance = getInterPixelDistance(viewport.ViewportYDimension);
 
 		CoordinateTransformation transformer = (inputPoint) -> {
-			double sceneX = screenToCartesianCoordinates(inputPoint.x, viewport.ViewportYDimension) * interPixelDistance + cameraLocation.getX();
-			double sceneY = screenToCartesianCoordinates(inputPoint.y, viewport.ViewportXDimension) * interPixelDistance + cameraLocation.getY();
+			double sceneX = screenToCartesianCoordinates(inputPoint.x, viewport.ViewportXDimension) * interPixelDistance + cameraLocation.getX();
+			double sceneY = screenToCartesianCoordinates(inputPoint.y, viewport.ViewportYDimension) * interPixelDistance + cameraLocation.getY();
 			return new XYPoint<Double>(sceneX, sceneY);
 		};
 		

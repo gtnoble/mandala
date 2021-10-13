@@ -62,14 +62,14 @@ public class FractintParameters {
 		return outputString;
 	}
 
-	public Complex center() {
+	public XYPoint<Double> center() {
 		Pattern centerPattern = Pattern.compile("(?>-|\\+)\\d\\.?\\d*");
 		//String[] centerCoordinatesStrings = centerPattern.split(centerMagnificationParameters);
 		String[] centerCoordinatesStrings = getRegexMatches(centerPattern,
 															centerMagnificationParameters);
-		double real_part = Double.parseDouble(centerCoordinatesStrings[0]);
-		double imag_part = Double.parseDouble(centerCoordinatesStrings[1]);
-		return new Complex(real_part, imag_part);
+		double realPart = Double.parseDouble(centerCoordinatesStrings[0]);
+		double imagPart = Double.parseDouble(centerCoordinatesStrings[1]);
+		return new XYPoint<Double>(realPart, imagPart);
 	}
 	
 	public double zoom() {

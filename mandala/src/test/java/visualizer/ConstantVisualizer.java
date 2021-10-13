@@ -1,7 +1,6 @@
 package visualizer;
 
-import org.apache.commons.math3.complex.Complex;
-
+import mandala.XYPoint;
 import mandala.visualizer.Visualizer;
 
 public class ConstantVisualizer implements Visualizer {
@@ -14,7 +13,7 @@ public class ConstantVisualizer implements Visualizer {
 	}
 	
 	@Override
-	public double value(double[] coordinates) {
+	public double value(XYPoint<Double> point) {
 		return constantValue;
 	}
 
