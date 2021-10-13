@@ -2,7 +2,7 @@ package mandala.visualizer;
 
 import mandala.XYPoint;
 
-public interface Visualizer {
-	public double value(XYPoint<Double> point);
+public interface Visualizer<T extends Number> {
+	public double value(XYPoint<T> point);
 	
 }

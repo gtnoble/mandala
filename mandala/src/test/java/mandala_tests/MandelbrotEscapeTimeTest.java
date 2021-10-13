@@ -14,7 +14,7 @@ import mandala.visualizer.Visualizer;
 
 class MandelbrotEscapeTimeTest {
 	
-	static Visualizer visualizer;
+	static Visualizer<Double> visualizer;
 	final static int maxIterations = 100;
 
 	@BeforeAll

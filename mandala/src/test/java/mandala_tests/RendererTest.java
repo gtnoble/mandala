@@ -15,7 +15,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import mandala.FractintParameters;
-import mandala.Raster;
+import mandala.Bitmap;
 import mandala.ParallelBasicRasterizer;
 import mandala.PixelPipeline;
 import mandala.Rasterizer;
@@ -32,7 +32,7 @@ class RendererTest {
 	
 	//static Renderer renderer;
 	static VirtualCamera camera;
-	static Raster raster;
+	static Bitmap raster;
 	static Viewport viewport;
 	static Visualizer visualizer;
 	static Path resourcesPath;
@@ -71,7 +71,7 @@ class RendererTest {
 	@MethodSource(value = "rendererUnderTest")
 	void testRenderScene(Rasterizer renderer) {
 		PixelPipeline scenePipe = renderer.renderScene(viewport, camera, null, visualizer);
-		raster = new Raster(scenePipe);
+		raster = new Bitmap(scenePipe);
 		Path imagePath = resourcesPath.resolve(renderer.getClass().getSimpleName() + "_" + "fractintTestImage.tiff");
 		raster.writeTIFF(imagePath.toFile());
 	}

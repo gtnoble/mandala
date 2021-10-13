@@ -4,7 +4,7 @@ import org.apache.commons.math3.complex.Complex;
 
 import mandala.XYPoint;
 
-public class MandelbrotExteriorDistance implements Visualizer {
+public class MandelbrotExteriorDistance implements Visualizer<Double> {
 
 	int maxIterations;
 	public MandelbrotExteriorDistance(int maxIterations) {

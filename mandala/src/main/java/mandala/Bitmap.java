@@ -6,30 +6,30 @@ import java.io.IOException;
 import mil.nga.tiff.*;
 import mil.nga.tiff.util.TiffConstants;
 
-public class Raster {
+public class Bitmap {
 	double[][] pixels;
 	int width;
 	int height;
 	
-	public Raster(double[][] pixels, int width, int height) {
+	public Bitmap(double[][] pixels, int width, int height) {
 		this.pixels = pixels;
 		this.width = width;
 		this.height = height;
 	}
 	
-	public Raster(int width, int height) {
+	public Bitmap(int width, int height) {
 		this.width = width;
 		this.height = height;
 		pixels = new double[width][height];
 	}
 	
-	public Raster(Viewport viewport) {
+	public Bitmap(Viewport viewport) {
 		this.width = viewport.ViewportXDimension;
 		this.height = viewport.ViewportYDimension;
 		this.pixels = new double[width][height];
 	}
 	
-	public Raster(PixelPipeline pipeline) {
+	public Bitmap(PixelPipeline pipeline) {
 		this.width = pipeline.getRasterXDimension();
 		this.height = pipeline.getRasterYDimension();
 		this.pixels = new double[width][height];

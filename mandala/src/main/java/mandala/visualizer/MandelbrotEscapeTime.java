@@ -6,7 +6,7 @@ import org.apache.commons.math3.complex.Complex;
 
 import mandala.XYPoint;
 
-public class MandelbrotEscapeTime implements Visualizer{
+public class MandelbrotEscapeTime implements Visualizer<Double>{
 	int maxIterations;
 	
 	public MandelbrotEscapeTime(int maxIterations) {

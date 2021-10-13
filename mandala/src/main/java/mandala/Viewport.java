@@ -1,17 +1,21 @@
 package mandala;
 
-import java.util.function.IntFunction;
 import java.util.function.LongFunction;
-import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 public class Viewport {
-int ViewportXDimension, ViewportYDimension;
+int ViewportXDimension, ViewportYDimension, offsetX, offsetY;
 
-public Viewport(int xDim, int yDim) {
+public Viewport(int xDim, int yDim, int offsetX, int offsetY) {
 	this.ViewportXDimension = xDim;
 	this.ViewportYDimension = yDim;
+	this.offsetX = offsetX;
+	this.offsetY = offsetY;
+}
+
+public Viewport(int xDim, int yDim) {
+	this(xDim, yDim, 0, 0);
 }
 
 public int getXDimension() {
@@ -25,8 +29,8 @@ public int getYDimension() {
 public Stream<XYPoint<Integer>> streamPixelCoordinates() {
 	
 	LongFunction<XYPoint<Integer>> lengthToXY = (input) -> {
-		int x = (int) (input % getXDimension());
-		int y = (int) (input / getXDimension());
+		int x = (int) (input % getXDimension()) + offsetX;
+		int y = (int) (input / getXDimension()) + offsetY;
 		return new XYPoint<Integer>(x, y);
 	};
 	
